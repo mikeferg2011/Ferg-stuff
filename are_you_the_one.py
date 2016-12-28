@@ -1,5 +1,43 @@
+
+# coding: utf-8
+
+# In[ ]:
+
 import numpy as np
+import pandas as pd
 import datetime
+
+
+# In[ ]:
+
+men = {0:'Andre',
+      1:'Derrick',
+      2:'Edward',
+      3:'Hayden',
+      4:'Jaylen',
+      5:'Joey',
+      6:'Michael',
+      7:'Mike',
+      8:'Osvaldo',
+      9:'Ozzy',
+      10:'Tyler'
+      }
+
+women = {0:'Alicia',
+        1:'Carolina',
+        2:'Cas',
+        3:'Gianna',
+        4:'Hannah',
+        5:'Kam',
+        6:'Kari',
+        7:'Kathryn',
+        8:'Shannon',
+        9:'Taylor',
+        10:'Tyranny'
+        }
+
+
+# In[ ]:
 
 #weekly pairs
 week1 = np.array([[1,0,0,0,0,0,0,0,0,0,0],
@@ -25,6 +63,8 @@ week2 = np.array([[1,0,0,0,0,0,0,0,0,0,0],
                  [0,0,0,0,0,0,0,0,0,1,0],
                  [0,0,0,0,1,0,0,0,0,0,0]])
 
+
+# In[ ]:
 
 print datetime.datetime.now()
 arrays = []
@@ -71,6 +111,9 @@ for a in range(len(eye)):
                                         and sum(sum(matrix*week2)) == 4  ):
                                             arrays.append(matrix.copy())
 print "total: "+str(counter)
-print "remaining "+str(len(arrays))
-print sum(arrays)/len(arrays)
+print "remaining: "+str(len(arrays))
+prob = sum(arrays)/len(arrays)
+prob = pd.DataFrame(prob, index=men.values(), columns=women.values())
+print prob
+prob.to_csv('are_you_the_one.csv', index=True, header=True, sep=',')
 print datetime.datetime.now()
