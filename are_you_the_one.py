@@ -40,29 +40,34 @@ women = {0:'Alicia',
 # In[ ]:
 
 #weekly pairs
-week1 = np.array([[1,0,0,0,0,0,0,0,0,0,0],
-                 [0,1,0,0,0,0,0,0,0,0,0],
-                 [0,0,1,0,0,0,0,0,0,0,0],
-                 [0,0,0,1,0,0,0,0,0,0,0],
-                 [0,0,0,0,1,0,0,0,0,0,0],
-                 [0,0,0,0,0,1,0,0,0,0,0],
-                 [0,0,0,0,0,0,1,0,0,0,0],
-                 [0,0,0,0,0,0,0,1,0,0,0],
-                 [0,0,0,0,0,0,0,0,1,0,0],
-                 [0,0,0,0,0,0,0,0,0,1,0],
-                 [0,0,0,0,0,0,0,0,0,0,1]])
-week2 = np.array([[1,0,0,0,0,0,0,0,0,0,0],
-                 [0,0,1,0,0,0,0,0,0,0,0],
-                 [0,1,0,0,0,0,0,0,0,0,0],
-                 [0,0,0,1,0,0,0,0,0,0,0],
-                 [0,0,0,0,0,0,0,0,0,0,1],
-                 [0,0,0,0,0,1,0,0,0,0,0],
-                 [0,0,0,0,0,0,1,0,0,0,0],
-                 [0,0,0,0,0,0,0,1,0,0,0],
-                 [0,0,0,0,0,0,0,0,1,0,0],
-                 [0,0,0,0,0,0,0,0,0,1,0],
-                 [0,0,0,0,1,0,0,0,0,0,0]])
+#weekly pairs
+week1 = np.zeros((11,11))
+week1[0][0] = 1
+week1[1][7] = 1
+week1[2][5] = 1
+week1[3][8] = 1
+week1[4][2] = 1
+week1[5][1] = 1
+week1[6][4] = 1
+week1[7][6] = 1
+week1[8][10] = 1
+week1[9][3] = 1
+week1[10][9] = 1
+print week1
 
+week2 = np.zeros((11,11))
+week2[0][4] = 1
+week2[1][0] = 1
+week2[2][8] = 1
+week2[3][9] = 1
+week2[4][5] = 1
+week2[5][1] = 1
+week2[6][3] = 1
+week2[7][2] = 1
+week2[8][6] = 1
+week2[9][7] = 1
+week2[10][10] = 1
+print week2
 
 # In[ ]:
 
@@ -75,7 +80,7 @@ for a in range(len(eye)):
     matrix[0] = eye[a]
     eye_a = np.delete(eye, a, 0)
     for b in range(len(eye_a)):
-        #print a,b,datetime.datetime.now()
+        print a,b,datetime.datetime.now()
         matrix[1] = eye_a[b]
         eye_b = np.delete(eye_a, b, 0)
         for c in range(len(eye_b)):
@@ -105,10 +110,10 @@ for a in range(len(eye)):
                                         matrix[10] = eye_j[0]
                                         counter+=1
                                         #rules for adding to list
-                                        if (matrix[0][0] == 1
-                                        and matrix[1][1] == 0
-                                        and sum(sum(matrix*week1)) == 3
-                                        and sum(sum(matrix*week2)) == 4  ):
+                                        if (matrix[3][3] == 0
+										and matrix[0][0] ==0
+                                        and sum(sum(matrix*week1)) == 2
+										and sum(sum(matrix*week2)) == 0):
                                             arrays.append(matrix.copy())
 print "total: "+str(counter)
 print "remaining: "+str(len(arrays))
