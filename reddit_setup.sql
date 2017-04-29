@@ -1,11 +1,14 @@
 create database reddit;
 
 create table reddit.tile_placements (
-	ts bigint,
-  user text,
-  x_coordinate int,
-  y_coordinate int,
-  color int
+	epoch_ts bigint,
+	user text,
+	x_coordinate int,
+	y_coordinate int,
+	color_id int,
+	ts datetime,
+	color_hex text,
+	color_name text
 );
 
 -- Bash insert all data
@@ -35,29 +38,3 @@ insert into reddit.color_lkp values
 (14, '#E04AFF', 'pink'),
 (15, '#820080', 'purple')
 ;
-
--- Error Code: 1206. The total number of locks exceeds the lock table size
--- try splitting by color/hour combo (color alone didnt work)
-create table reddit.place as
-	select from_unixtime(floor(tp.ts/1000)) dts
-		, tp.ts
-		, tp.user
-		, tp.x_coordinate
-		, tp.y_coordinate
-		, tp.color
-		, cl.hex
-		, cl.color_name
-	from reddit.tile_placements tp
-	join reddit.color_lkp cl
-	on tp.color = cl.color_id;
-
-final board
-SELECT * FROM (
-	SELECT color
-		, x_coordinate
-		, y_coordinate
-	  , ROW_NUMBER() OVER(PARTITION BY x_coordinate, y_coordinate ORDER BY ts DESC) rn
-	FROM `reddit-jg-data.place_events.all_tile_placements`
-)
-WHERE rn=1
-ORDER by x_coordinate, y_coordinate;
