@@ -1,0 +1,12 @@
+name: sample_shiny_app
+title:
+username:
+account: ferg
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 207669
+bundleId: 955301
+url: https://ferg.shinyapps.io/sample_shiny_app/
+when: 1503717911.95389
+asMultiple: FALSE
+asStatic: FALSE
